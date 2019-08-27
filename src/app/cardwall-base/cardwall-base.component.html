@@ -1,0 +1,7 @@
+<div *ngIf="!(loading$ | async); else loading">
+  <div>I have a board</div>
+</div>
+
+<ng-template #loading>
+  <app-loading></app-loading>
+</ng-template>
