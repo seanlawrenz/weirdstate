@@ -12,7 +12,7 @@ export class GetBoard implements Action {
 
 export class GetBoardSuccess implements Action {
   readonly type = BoardActionTypes.GET_BOARD_SUCCESS;
-  constructor(public payload: Board) {}
+  constructor(public payload: any) {}
 }
 
 export type BoardActions = GetBoard | GetBoardSuccess;

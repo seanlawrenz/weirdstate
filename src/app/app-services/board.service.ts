@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 
 import { SignalrService } from './signalr.service';
 import { Plan, SignalRResult, Board } from '@app/models';
-import { Observable, of } from 'rxjs';
+import { Observable, of, observable } from 'rxjs';
 
 import { split, remove } from 'lodash';
 import { uniqueValuesInArray } from '@app/utils';
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -73,6 +73,28 @@ export class BoardService {
         }
       }),
     );
+  }
+
+  fetchBoardTest(projectId, planId): Observable<any> {
+    return new Observable(o => {
+      this.signalR.invoke('BoardGet', planId, projectId).pipe(
+        map((x: SignalRResult) => {
+          if (x.isSuccessful) {
+            o.next(x.item);
+            o.complete();
+          }
+        }),
+      );
+    });
+  }
+
+  fakeFetchBoard(): Observable<any> {
+    return new Observable(o => {
+      setTimeout(() => {
+        o.next({ data: 'data' });
+        o.complete();
+      }, 1000);
+    });
   }
 
   private fetchPlan(planId: number, projectId: number): Observable<Plan> {

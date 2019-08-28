@@ -24,7 +24,7 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss"],
-            "scripts": []
+            "scripts": ["./node_modules/jquery/dist/jquery.min.js", "./node_modules/signalr/jquery.signalR.min.js"]
           },
           "configurations": {
             "production": {

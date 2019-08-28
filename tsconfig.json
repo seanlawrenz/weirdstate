@@ -16,6 +16,7 @@
     "importHelpers": true,
     "target": "es2015",
     "typeRoots": ["node_modules/@types", "typings"],
+    "types": ["jquery", "signalr"],
     "lib": ["es2018", "dom"]
   }
 }

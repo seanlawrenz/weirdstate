@@ -6,8 +6,6 @@ import { ConnectionState, CardOperationInfo, Card, CardReorder, List } from '@ap
 import { HubConnection, HubProxy } from '@app/models/signalr.model';
 import { environment } from 'environments/environment';
 
-declare var $;
-
 @Injectable({
   providedIn: 'root',
 })

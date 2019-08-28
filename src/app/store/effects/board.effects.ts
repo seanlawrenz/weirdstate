@@ -5,7 +5,7 @@ import { Store, Action } from '@ngrx/store';
 import { fromRoot } from '..';
 import { BoardActionTypes, GetBoardSuccess } from '../actions';
 import { getRouterState } from '../selectors';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { withLatestFrom, map, catchError, mergeMap, switchMap } from 'rxjs/operators';
 import { BoardService } from '@app/app-services/board.service';
 import { SignalRResult } from '@app/models';
@@ -22,26 +22,17 @@ export class BoardEffects {
   @Effect()
   loadBoard$: Observable<Action> = this.actions$.pipe(
     ofType(BoardActionTypes.GET_BOARD),
-    withLatestFrom(this.store.select(getRouterState), (action, router) => {
-      const {
-        state: {
-          params: { projectId, boardId },
-        },
-      } = router;
-
-      return {
-        projectId,
-        boardId,
-      };
-    }),
-    mergeMap(({ projectId, boardId }) =>
-      this.boardService.fetchBoard(projectId, boardId).pipe(
-        map((result: SignalRResult) => {
-          if (result.isSuccessful) {
-            return new GetBoardSuccess(result.item);
-          }
-        }),
-      ),
+    switchMap(
+      () =>
+        this.boardService.fetchBoard(228684, 90002230).pipe(
+          map((result: SignalRResult) => {
+            if (result.isSuccessful) {
+              return new GetBoardSuccess(result.item);
+            }
+          }),
+        ),
+      // this.boardService.fakeFetchBoard().pipe(map(data => new GetBoardSuccess(data))),
+      // this.boardService.fetchBoardTest(228684, 9000230).pipe(map(data => new GetBoardSuccess(data))),
     ),
   );
 }
