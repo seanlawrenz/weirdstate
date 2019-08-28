@@ -5,8 +5,10 @@
     "ng": "ng",
     "start": "ng serve --sourceMap=false",
     "build": "npm run build:mac",
+    "build:win": "ng build --sourceMap=false --outputHashing=none",
     "build:mac": "ng build --sourceMap=false --outputHashing=none",
     "postbuild:mac": "cpx \"dist/*.{js,js.map,css}\" /Volumes/trunkFromVM/TDNext/Scripts/Agile/",
+    "postbuild:win": "cpx \"dist/*.{js,js.map,css}\" \"%TDTrunkPath%/TDNext/Scripts/Agile\" -v",
     "test": "jest --watch",
     "lint": "ng lint",
     "e2e": "ng e2e"
